@@ -71,10 +71,15 @@
       overflow: hidden;
       background: #1A1A1A;
     }
-    .video-hero video {
+    .hero-vid {
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
+    }
+    .hero-vid--mobile { display: none; }
+    @media (max-width: 768px) {
+      .hero-vid--desktop { display: none; }
+      .hero-vid--mobile { display: block; }
     }
     .video-dim {
       position: absolute; inset: 0;
@@ -460,9 +465,15 @@
 
   <!-- ════════ AUTOPLAY VIDEO HERO ════════ -->
   <section class="video-hero" id="videoHeroSection">
-    <video id="heroVideo" muted playsinline preload="auto"
+    <!-- Desktop video (hidden on mobile) -->
+    <video id="heroVideoDesktop" class="hero-vid hero-vid--desktop" muted playsinline preload="auto"
            poster="componenetes-de-marca/Video-transicion/fotopizza1.jpeg">
       <source src="componenetes-de-marca/Video-transicion/videopizzatranscision.mp4" type="video/mp4">
+    </video>
+    <!-- Mobile video 9:16 (hidden on desktop) -->
+    <video id="heroVideoMobile" class="hero-vid hero-vid--mobile" muted playsinline preload="auto"
+           poster="componenetes-de-marca/Video-transicion/fotopizza1.jpeg">
+      <source src="componenetes-de-marca/Video-transicion/videotransicionmovil.mp4" type="video/mp4">
     </video>
 
     <div class="video-grad-top"></div>
@@ -843,38 +854,47 @@
       var nav = document.getElementById('nav');
       var burger = document.getElementById('burger');
       var mobileMenu = document.getElementById('mobileMenu');
-      var video = document.getElementById('heroVideo');
       var dim = document.getElementById('videoDim');
       var heroContent = document.getElementById('videoHeroContent');
       var gradBottom = document.getElementById('videoGradBottom');
       var scrollHint = document.getElementById('scrollHint');
+
+      // ─── Pick the right video based on viewport ───
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+      var video = isMobile
+        ? document.getElementById('heroVideoMobile')
+        : document.getElementById('heroVideoDesktop');
+
+      // Remove preload from the hidden video so it doesn't download
+      var hiddenVideo = isMobile
+        ? document.getElementById('heroVideoDesktop')
+        : document.getElementById('heroVideoMobile');
+      if (hiddenVideo) {
+        hiddenVideo.preload = 'none';
+        hiddenVideo.removeAttribute('src');
+        hiddenVideo.load();
+      }
+
+      function revealBrand() {
+        video.pause();
+        dim.classList.add('active');
+        gradBottom.style.opacity = '0';
+        setTimeout(function() { heroContent.classList.add('active'); }, 200);
+        setTimeout(function() { scrollHint.classList.add('active'); }, 1400);
+      }
 
       // ─── Autoplay video → reveal on end ───
       video.addEventListener('canplaythrough', function() {
         video.play().catch(function() {});
       }, { once: true });
 
-      video.addEventListener('ended', function() {
-        // Freeze on last frame, then reveal brand
-        video.pause();
-        dim.classList.add('active');
-        gradBottom.style.opacity = '0';
-        // Slight delay so the dim fades in first, then content
-        setTimeout(function() {
-          heroContent.classList.add('active');
-        }, 200);
-        // Show scroll hint after content is revealed
-        setTimeout(function() {
-          scrollHint.classList.add('active');
-        }, 1400);
-      });
+      video.addEventListener('ended', revealBrand);
 
-      // Fallback: if video can't autoplay, show brand immediately
+      // Fallback: if autoplay blocked, show brand immediately
       video.addEventListener('loadeddata', function() {
         var playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch(function() {
-            // Autoplay blocked — reveal brand right away
             dim.classList.add('active');
             heroContent.classList.add('active');
             scrollHint.classList.add('active');
