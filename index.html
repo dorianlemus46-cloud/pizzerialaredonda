@@ -47,12 +47,12 @@
     }
 
     /* ─── Fluid type ─── */
-    .fluid-xs   { font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem); }
-    .fluid-sm   { font-size: clamp(0.8rem, 0.75rem + 0.3vw, 0.95rem); }
-    .fluid-base { font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem); }
-    .fluid-lg   { font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem); }
-    .fluid-xl   { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
-    .fluid-2xl  { font-size: clamp(2rem, 1.5rem + 2vw, 3.2rem); }
+    .fluid-xs   { font-size: clamp(0.8rem, 0.72rem + 0.25vw, 0.85rem); }
+    .fluid-sm   { font-size: clamp(0.92rem, 0.82rem + 0.3vw, 0.95rem); }
+    .fluid-base { font-size: clamp(1.05rem, 0.95rem + 0.3vw, 1.1rem); }
+    .fluid-lg   { font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.4rem); }
+    .fluid-xl   { font-size: clamp(1.55rem, 1.25rem + 1vw, 2rem); }
+    .fluid-2xl  { font-size: clamp(2.1rem, 1.55rem + 2vw, 3.2rem); }
     .fluid-3xl  { font-size: clamp(2.8rem, 2rem + 3vw, 5rem); }
     .fluid-hero { font-size: clamp(3.5rem, 2.5rem + 4.5vw, 7rem); }
 
@@ -408,15 +408,34 @@
     .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(192,57,43,0.12), transparent); }
 
     /* ═══════ MOBILE FIXES ═══════ */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      body { font-size: 1.05rem; line-height: 1.75; }
+
       .video-hero { height: 100svh; }
-      .video-hero-content { padding: 0 1.25rem; }
-      .video-hero-content .btn { padding: 0.75rem 1.5rem; font-size: 0.75rem; }
-      .video-hero-content h1 { font-size: clamp(2.8rem, 8vw, 3.5rem); }
-      .video-hero-content .font-display.italic { font-size: clamp(1rem, 3.5vw, 1.2rem); }
-      .fluid-hero { font-size: clamp(2.8rem, 8vw, 3.5rem) !important; }
+      .video-hero-content { padding: 0 1.5rem; }
+      .video-hero-content .btn { padding: 0.85rem 1.6rem; font-size: 0.85rem; }
+      .video-hero-content h1 { font-size: clamp(3rem, 10vw, 4rem); }
+      .video-hero-content .font-display.italic { font-size: clamp(1.1rem, 4vw, 1.35rem); }
+      .fluid-hero { font-size: clamp(3rem, 10vw, 4rem) !important; }
+
+      /* Bump up all body text for readability */
+      .fluid-xs   { font-size: 0.88rem !important; }
+      .fluid-sm   { font-size: 1rem !important; }
+      .fluid-base { font-size: 1.1rem !important; }
+      .fluid-lg   { font-size: 1.25rem !important; }
 
       .pizza-card .img-card { aspect-ratio: 16/10; }
+      .pizza-card p { font-size: 0.9rem !important; line-height: 1.6; }
+
+      .nav-link { font-size: 0.82rem; }
+      .btn-primary, .btn-secondary { font-size: 0.88rem; }
+
+      .testimonial-card p { font-size: 0.95rem !important; line-height: 1.7; }
+      .testimonial-name { font-size: 0.95rem; }
+      .testimonial-role { font-size: 0.8rem; }
+
+      .schedule-item span { font-size: 0.95rem !important; }
+      .social-link div { font-size: 0.95rem !important; }
 
       .map-embed-wrap { min-height: 280px; }
       .map-embed-wrap iframe { min-height: 280px; }
@@ -427,7 +446,7 @@
     }
 
     @media (max-width: 480px) {
-      .video-hero-content .w-24 { width: 4.5rem; }
+      .video-hero-content .w-24 { width: 5rem; }
       .video-hero-content .mb-10 { margin-bottom: 2rem; }
       .video-hero-content .flex-wrap { flex-direction: column; width: 100%; padding: 0 0.5rem; }
       .video-hero-content .flex-wrap .btn { width: 100%; justify-content: center; }
@@ -865,13 +884,16 @@
         ? document.getElementById('heroVideoMobile')
         : document.getElementById('heroVideoDesktop');
 
-      // Remove preload from the hidden video so it doesn't download
+      // Completely disable the hidden video so it doesn't download
       var hiddenVideo = isMobile
         ? document.getElementById('heroVideoDesktop')
         : document.getElementById('heroVideoMobile');
       if (hiddenVideo) {
+        hiddenVideo.pause();
         hiddenVideo.preload = 'none';
-        hiddenVideo.removeAttribute('src');
+        // Remove <source> children so it truly stops loading
+        var sources = hiddenVideo.querySelectorAll('source');
+        for (var s = 0; s < sources.length; s++) sources[s].remove();
         hiddenVideo.load();
       }
 
