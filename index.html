@@ -401,6 +401,32 @@
 
     .deco-line { width: 48px; height: 2px; background: #C0392B; border-radius: 1px; }
     .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(192,57,43,0.12), transparent); }
+
+    /* ═══════ MOBILE FIXES ═══════ */
+    @media (max-width: 640px) {
+      .video-hero { height: 100svh; }
+      .video-hero-content { padding: 0 1.25rem; }
+      .video-hero-content .btn { padding: 0.75rem 1.5rem; font-size: 0.75rem; }
+      .video-hero-content h1 { font-size: clamp(2.8rem, 8vw, 3.5rem); }
+      .video-hero-content .font-display.italic { font-size: clamp(1rem, 3.5vw, 1.2rem); }
+      .fluid-hero { font-size: clamp(2.8rem, 8vw, 3.5rem) !important; }
+
+      .pizza-card .img-card { aspect-ratio: 16/10; }
+
+      .map-embed-wrap { min-height: 280px; }
+      .map-embed-wrap iframe { min-height: 280px; }
+
+      .wa-float { width: 56px; height: 56px; bottom: 1rem; right: 1rem; }
+      .wa-float svg { width: 28px; height: 28px; }
+      .wa-float::before { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .video-hero-content .w-24 { width: 4.5rem; }
+      .video-hero-content .mb-10 { margin-bottom: 2rem; }
+      .video-hero-content .flex-wrap { flex-direction: column; width: 100%; padding: 0 0.5rem; }
+      .video-hero-content .flex-wrap .btn { width: 100%; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -409,7 +435,7 @@
   <nav class="nav" id="nav">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
       <a href="#" class="shrink-0 relative z-10" aria-label="La Redonda — Inicio">
-        <img src="componenetes-de-marca/Logo la redonda.png" alt="La Redonda" class="h-11 w-auto" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));">
+        <img src="componenetes-de-marca/Logo la redonda.webp" alt="La Redonda" class="h-11 w-auto" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));">
       </a>
       <div class="desktop-links flex items-center gap-10">
         <a href="#nosotros" class="nav-link">Nosotros</a>
@@ -445,7 +471,7 @@
 
     <!-- Centered hero content — revealed when video ends -->
     <div class="video-hero-content" id="videoHeroContent">
-      <img src="componenetes-de-marca/Logo la redonda.png" alt="" class="w-24 md:w-28 mx-auto mb-6" style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));">
+      <img src="componenetes-de-marca/Logo la redonda.webp" alt="" class="w-24 md:w-28 mx-auto mb-6" style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));">
       <p class="fluid-xs font-body font-500 uppercase tracking-[0.2em] text-brand-red mb-4" style="opacity: 0.85;">Pizzería artesanal · Guadalajara</p>
       <h1 class="font-display font-900 fluid-hero text-brand-cream leading-[0.92] mb-5" style="letter-spacing: -0.035em;">
         La Redonda
@@ -491,10 +517,10 @@
         <div class="lg:col-span-7 reveal" style="transition-delay: 0.15s;">
           <div class="grid grid-cols-2 gap-4">
             <div class="img-card aspect-[3/4]">
-              <img src="componenetes-de-marca/interior.png" alt="Interior de La Redonda" loading="lazy">
+              <img src="componenetes-de-marca/interior.jpg" alt="Interior de La Redonda" loading="lazy">
             </div>
             <div class="img-card aspect-[3/4] mt-12">
-              <img src="componenetes-de-marca/hornoartesanal.png" alt="Nuestro horno artesanal" loading="lazy">
+              <img src="componenetes-de-marca/hornoartesanal.jpg" alt="Nuestro horno artesanal" loading="lazy">
             </div>
           </div>
         </div>
@@ -538,7 +564,7 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
         <div class="pizza-card reveal">
-          <div class="img-card"><img src="componenetes-de-marca/catalogo/Margarita.jpeg" alt="Pizza Margarita" loading="lazy"></div>
+          <div class="img-card"><img src="componenetes-de-marca/Catalogo/Margarita.jpg" alt="Pizza Margarita" loading="lazy"></div>
           <div class="p-5 lg:p-6">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Margarita</h3>
@@ -549,7 +575,7 @@
         </div>
 
         <div class="pizza-card reveal" style="transition-delay: 0.08s;">
-          <div class="img-card"><img src="componenetes-de-marca/catalogo/peperoni.jpeg" alt="Pizza Pepperoni" loading="lazy"></div>
+          <div class="img-card"><img src="componenetes-de-marca/Catalogo/peperoni.jpg" alt="Pizza Pepperoni" loading="lazy"></div>
           <div class="p-5 lg:p-6">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Pepperoni</h3>
@@ -560,7 +586,7 @@
         </div>
 
         <div class="pizza-card reveal" style="transition-delay: 0.16s;">
-          <div class="img-card"><img src="componenetes-de-marca/catalogo/hawaiana.jpeg" alt="Pizza Hawaiana" loading="lazy"></div>
+          <div class="img-card"><img src="componenetes-de-marca/Catalogo/hawaiana.jpg" alt="Pizza Hawaiana" loading="lazy"></div>
           <div class="p-5 lg:p-6">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Hawaiana</h3>
@@ -571,7 +597,7 @@
         </div>
 
         <div class="pizza-card reveal" style="transition-delay: 0.24s;">
-          <div class="img-card"><img src="componenetes-de-marca/catalogo/la redonda especial.jpeg" alt="La Redonda Especial" loading="lazy"></div>
+          <div class="img-card"><img src="componenetes-de-marca/Catalogo/la redonda especial.jpg" alt="La Redonda Especial" loading="lazy"></div>
           <div class="p-5 lg:p-6">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">La Redonda Especial</h3>
@@ -582,7 +608,7 @@
         </div>
 
         <div class="pizza-card reveal" style="transition-delay: 0.32s;">
-          <div class="img-card"><img src="componenetes-de-marca/catalogo/cuatro quesos.jpeg" alt="Cuatro Quesos" loading="lazy"></div>
+          <div class="img-card"><img src="componenetes-de-marca/Catalogo/cuatro quesos.jpg" alt="Cuatro Quesos" loading="lazy"></div>
           <div class="p-5 lg:p-6">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Cuatro Quesos</h3>
@@ -593,7 +619,7 @@
         </div>
 
         <div class="pizza-card reveal" style="transition-delay: 0.40s;">
-          <div class="img-card"><img src="componenetes-de-marca/catalogo/vegetariana.jpeg" alt="Vegetariana" loading="lazy"></div>
+          <div class="img-card"><img src="componenetes-de-marca/Catalogo/vegetariana.jpg" alt="Vegetariana" loading="lazy"></div>
           <div class="p-5 lg:p-6">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Vegetariana</h3>
@@ -609,7 +635,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
         <div class="pizza-card reveal">
           <div class="grid grid-cols-1 sm:grid-cols-2">
-            <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/catalogo/Alitas.jpeg" alt="Alitas" loading="lazy"></div>
+            <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/Catalogo/Alitas.jpg" alt="Alitas" loading="lazy"></div>
             <div class="p-5 lg:p-6 flex flex-col justify-center">
               <h3 class="font-display font-700 fluid-lg text-brand-cream mb-1" style="letter-spacing: -0.02em;">Alitas</h3>
               <span class="fluid-xs font-body font-600 text-brand-red mb-3">$95 MXN la orden</span>
@@ -619,7 +645,7 @@
         </div>
         <div class="pizza-card reveal" style="transition-delay: 0.1s;">
           <div class="grid grid-cols-1 sm:grid-cols-2">
-            <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/catalogo/pan de ajo.jpeg" alt="Pan de Ajo" loading="lazy"></div>
+            <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/Catalogo/pan de ajo.jpg" alt="Pan de Ajo" loading="lazy"></div>
             <div class="p-5 lg:p-6 flex flex-col justify-center">
               <h3 class="font-display font-700 fluid-lg text-brand-cream mb-1" style="letter-spacing: -0.02em;">Pan de Ajo</h3>
               <span class="fluid-xs font-body font-600 text-brand-red mb-3">$45 MXN</span>
@@ -799,7 +825,7 @@
   <footer class="py-10 px-6 lg:px-10" style="background: #141414; border-top: 1px solid rgba(192,57,43,0.08);">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-4">
-        <img src="componenetes-de-marca/Logo la redonda.png" alt="La Redonda" class="h-8 w-auto opacity-50">
+        <img src="componenetes-de-marca/Logo la redonda.webp" alt="La Redonda" class="h-8 w-auto opacity-50">
         <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.25);">© 2026 Pizzería La Redonda GDL</p>
       </div>
       <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.2);">Precios sujetos a cambio sin previo aviso</p>
