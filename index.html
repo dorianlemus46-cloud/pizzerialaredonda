@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Redonda — Pizzería Artesanal en Guadalajara</title>
+  <meta name="description" content="Pizzería La Redonda. Pizza artesanal con masa fermentada 24h y harina italiana. Colonia Americana, Guadalajara. Pedidos: 33 2345 6789.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#C0392B',
+              'red-dark': '#962D23',
+              'red-light': '#E74C3C',
+              cream: '#FDF6EC',
+              'cream-dark': '#F5E6CC',
+              black: '#1A1A1A',
+              'black-light': '#2D2D2D',
+              amber: '#D4943A',
+              'amber-light': '#E8B960',
+            },
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            body: ['Karla', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Karla', sans-serif;
+      background: #1A1A1A;
+      color: #FDF6EC;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Fluid type ─── */
+    .fluid-xs   { font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem); }
+    .fluid-sm   { font-size: clamp(0.8rem, 0.75rem + 0.3vw, 0.95rem); }
+    .fluid-base { font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem); }
+    .fluid-lg   { font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem); }
+    .fluid-xl   { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+    .fluid-2xl  { font-size: clamp(2rem, 1.5rem + 2vw, 3.2rem); }
+    .fluid-3xl  { font-size: clamp(2.8rem, 2rem + 3vw, 5rem); }
+    .fluid-hero { font-size: clamp(3.5rem, 2.5rem + 4.5vw, 7rem); }
+
+    /* ─── Grain ─── */
+    .grain { position: relative; }
+    .grain::before {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+
+    /* ═══════ AUTOPLAY VIDEO HERO ═══════ */
+    .video-hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      background: #1A1A1A;
+    }
+    .video-hero video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-dim {
+      position: absolute; inset: 0;
+      background: #1A1A1A;
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .video-dim.active { opacity: 0.82; }
+    .video-hero-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+                  transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    }
+    .video-hero-content.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .video-grad-top {
+      position: absolute; top: 0; left: 0; right: 0; height: 18%;
+      background: linear-gradient(to bottom, rgba(26,26,26,0.4), transparent);
+      z-index: 2; pointer-events: none;
+    }
+    .video-grad-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+      background: linear-gradient(to top, rgba(26,26,26,0.5), transparent);
+      z-index: 2; pointer-events: none;
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .video-scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 10; opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: hintBounce 2.5s ease-in-out infinite;
+    }
+    .video-scroll-hint.active { opacity: 0.7; }
+    @keyframes hintBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ─── Nav ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      padding: 1.25rem 0;
+      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav.scrolled {
+      background: rgba(26, 26, 26, 0.92);
+      backdrop-filter: blur(16px) saturate(1.2);
+      padding: 0.75rem 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .nav-link {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(253,246,236,0.65);
+      text-decoration: none; padding: 0.4rem 0; position: relative;
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: 0;
+      width: 0; height: 1.5px; background: #C0392B;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link:hover { color: #FDF6EC; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible { outline: 2px solid #C0392B; outline-offset: 6px; border-radius: 2px; }
+    .nav-link:active { color: #C0392B; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Karla', sans-serif; font-weight: 600;
+      letter-spacing: 0.06em; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn:active { transform: translateY(1px) scale(0.98); }
+    .btn:focus-visible { outline: 2px solid #C0392B; outline-offset: 4px; border-radius: 2px; }
+
+    .btn-primary {
+      background: #C0392B; color: #FDF6EC;
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-size: 0.82rem; text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(192,57,43,0.3), 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover {
+      background: #E74C3C;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(192,57,43,0.4), 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: transparent; color: #FDF6EC;
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-size: 0.82rem; text-transform: uppercase;
+      border: 1.5px solid rgba(253,246,236,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .btn-secondary:hover {
+      background: rgba(253,246,236,0.06);
+      border-color: rgba(253,246,236,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+
+    .btn-ghost {
+      background: transparent; color: #C0392B;
+      padding: 0.5rem 1.2rem; border-radius: 4px;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+    }
+    .btn-ghost:hover { background: rgba(192,57,43,0.06); transform: translateY(-1px); }
+
+    /* ─── Scroll reveal ─── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Image card ─── */
+    .img-card { position: relative; overflow: hidden; border-radius: 6px; }
+    .img-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .img-card:hover img { transform: scale(1.05); }
+    .img-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.1) 45%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ─── Pizza card ─── */
+    .pizza-card {
+      background: #232323; border-radius: 6px; overflow: hidden;
+      border: 1px solid rgba(253,246,236,0.04);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pizza-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.35), 0 4px 12px rgba(192,57,43,0.06);
+      border-color: rgba(192,57,43,0.15);
+    }
+    .pizza-card .img-card { border-radius: 0; aspect-ratio: 4/3; }
+
+    /* ─── WhatsApp ─── */
+    .wa-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 80;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.4), 0 2px 6px rgba(0,0,0,0.25);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: waPulse 3s ease-in-out infinite;
+    }
+    .wa-float:hover {
+      transform: scale(1.12);
+      box-shadow: 0 10px 32px rgba(37,211,102,0.5), 0 4px 12px rgba(0,0,0,0.3);
+      animation: none;
+    }
+    .wa-float:focus-visible { outline: 3px solid #25D366; outline-offset: 4px; }
+    .wa-float:active { transform: scale(1.05); }
+    .wa-float svg { width: 32px; height: 32px; fill: #fff; }
+    .wa-float::before {
+      content: '¡Pide aquí!';
+      position: absolute; right: calc(100% + 12px); top: 50%;
+      transform: translateY(-50%) translateX(8px);
+      background: #232323; color: #FDF6EC;
+      font-family: 'Karla', sans-serif; font-size: 0.78rem; font-weight: 600;
+      padding: 0.5rem 0.9rem; border-radius: 6px;
+      white-space: nowrap; opacity: 0; pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: opacity 0.3s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wa-float:hover::before { opacity: 1; transform: translateY(-50%) translateX(0); }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(37,211,102,0.4), 0 2px 6px rgba(0,0,0,0.25); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.55), 0 2px 6px rgba(0,0,0,0.25), 0 0 0 12px rgba(37,211,102,0.08); }
+    }
+
+    /* ─── Testimonials ─── */
+    .testimonials-mask {
+      max-height: 740px; overflow: hidden;
+      mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    }
+    .testimonials-track {
+      display: flex; flex-direction: column;
+      gap: 1.5rem; padding-bottom: 1.5rem;
+      animation: testimonialScroll var(--scroll-duration, 20s) linear infinite;
+    }
+    @keyframes testimonialScroll {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    .testimonial-card {
+      padding: 1.75rem; border-radius: 12px; max-width: 320px; width: 100%;
+      background: #232323;
+      border: 1px solid rgba(253,246,236,0.05);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0 2px 6px rgba(192,57,43,0.04);
+    }
+    .testimonial-card p {
+      font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.9rem);
+      line-height: 1.65; color: rgba(253,246,236,0.6);
+    }
+    .testimonial-avatar {
+      width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+      border: 2px solid rgba(192,57,43,0.15);
+    }
+    .testimonial-name {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 0.88rem; color: #FDF6EC; letter-spacing: -0.01em; line-height: 1.3;
+    }
+    .testimonial-role {
+      font-size: 0.72rem; color: rgba(253,246,236,0.35); line-height: 1.3;
+    }
+
+    /* ─── Google Maps embed ─── */
+    .map-embed-wrap {
+      border-radius: 6px; overflow: hidden;
+      border: 1px solid rgba(253,246,236,0.06);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 2px 8px rgba(192,57,43,0.04);
+      height: 100%; min-height: 380px;
+    }
+    .map-embed-wrap iframe {
+      width: 100%; height: 100%; min-height: 380px; display: block;
+      filter: grayscale(0.3) contrast(1.05);
+      transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .map-embed-wrap:hover iframe { filter: grayscale(0) contrast(1); }
+
+    /* ─── Info strip ─── */
+    .info-strip {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0 3rem;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .info-strip-divider {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(192,57,43,0.25), transparent);
+    }
+    .schedule-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.75rem 0;
+    }
+    .schedule-item + .schedule-item {
+      border-top: 1px solid rgba(253,246,236,0.04);
+    }
+    .social-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem; border-radius: 8px;
+      background: rgba(253,246,236,0.02);
+      border: 1px solid rgba(253,246,236,0.05);
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .social-link:hover {
+      transform: translateY(-2px);
+      background: rgba(192,57,43,0.05);
+      border-color: rgba(192,57,43,0.18);
+    }
+    .social-link:focus-visible { outline: 2px solid #C0392B; outline-offset: 4px; }
+    .social-link:active { transform: translateY(0); }
+    .social-icon-wrap {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(192,57,43,0.08); flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .info-strip { grid-template-columns: 1fr; gap: 2.5rem 0; }
+      .info-strip-divider { display: none; }
+    }
+
+    /* ─── Mobile menu ─── */
+    .mobile-overlay {
+      position: fixed; inset: 0; z-index: 90;
+      background: rgba(26,26,26,0.97); backdrop-filter: blur(24px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-overlay .nav-link { font-size: 1rem; letter-spacing: 0.18em; color: #FDF6EC; }
+
+    .burger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 91; }
+    @media (max-width: 768px) {
+      .burger { display: flex; flex-direction: column; gap: 6px; }
+      .burger span {
+        width: 26px; height: 2px; background: #FDF6EC; display: block;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s;
+        border-radius: 1px;
+      }
+      .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5.5px, 5.5px); }
+      .burger.active span:nth-child(2) { opacity: 0; }
+      .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5.5px, -5.5px); }
+      .desktop-links { display: none !important; }
+    }
+
+    .deco-line { width: 48px; height: 2px; background: #C0392B; border-radius: 1px; }
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(192,57,43,0.12), transparent); }
+  </style>
+</head>
+<body>
+
+  <!-- ════════ NAV ════════ -->
+  <nav class="nav" id="nav">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
+      <a href="#" class="shrink-0 relative z-10" aria-label="La Redonda — Inicio">
+        <img src="componenetes-de-marca/Logo la redonda.png" alt="La Redonda" class="h-11 w-auto" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));">
+      </a>
+      <div class="desktop-links flex items-center gap-10">
+        <a href="#nosotros" class="nav-link">Nosotros</a>
+        <a href="#menu" class="nav-link">Menú</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+        <a href="https://wa.me/523323456789" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.72rem;">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="opacity: 0.85;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir ahora
+        </a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" id="mobileMenu">
+    <a href="#nosotros" class="nav-link" onclick="closeMenu()">Nosotros</a>
+    <a href="#menu" class="nav-link" onclick="closeMenu()">Menú</a>
+    <a href="#contacto" class="nav-link" onclick="closeMenu()">Contacto</a>
+    <a href="https://wa.me/523323456789" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="closeMenu()">Pedir por WhatsApp</a>
+  </div>
+
+  <!-- ════════ AUTOPLAY VIDEO HERO ════════ -->
+  <section class="video-hero" id="videoHeroSection">
+    <video id="heroVideo" muted playsinline preload="auto"
+           poster="componenetes-de-marca/Video-transicion/fotopizza1.jpeg">
+      <source src="componenetes-de-marca/Video-transicion/videopizzatranscision.mp4" type="video/mp4">
+    </video>
+
+    <div class="video-grad-top"></div>
+    <div class="video-grad-bottom" id="videoGradBottom"></div>
+    <div class="video-dim" id="videoDim"></div>
+
+    <!-- Centered hero content — revealed when video ends -->
+    <div class="video-hero-content" id="videoHeroContent">
+      <img src="componenetes-de-marca/Logo la redonda.png" alt="" class="w-24 md:w-28 mx-auto mb-6" style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));">
+      <p class="fluid-xs font-body font-500 uppercase tracking-[0.2em] text-brand-red mb-4" style="opacity: 0.85;">Pizzería artesanal · Guadalajara</p>
+      <h1 class="font-display font-900 fluid-hero text-brand-cream leading-[0.92] mb-5" style="letter-spacing: -0.035em;">
+        La Redonda
+      </h1>
+      <p class="font-display italic fluid-lg mb-10" style="color: #E8B960; max-width: 30ch;">
+        Redonda de sabor, perfecta de siempre
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://wa.me/523323456789" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="opacity: 0.8;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Hacer pedido
+        </a>
+        <a href="#menu" class="btn btn-secondary">Ver menú</a>
+      </div>
+    </div>
+
+    <!-- Scroll hint — appears after brand reveal -->
+    <div class="video-scroll-hint" id="scrollHint">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ════════ SOBRE NOSOTROS ════════ -->
+  <section class="py-24 md:py-32 px-6 lg:px-10 grain" style="background: #212121;" id="nosotros">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        <div class="lg:col-span-5 reveal">
+          <p class="fluid-xs font-body font-500 uppercase tracking-[0.18em] text-brand-red mb-4">Nuestra historia</p>
+          <h2 class="font-display font-900 fluid-2xl text-brand-cream leading-[1.05] mb-6" style="letter-spacing: -0.03em;">
+            Alma de barrio,<br>calidad de verdad
+          </h2>
+          <div class="deco-line mb-8"></div>
+          <p class="fluid-sm font-light leading-relaxed mb-5" style="color: rgba(253,246,236,0.6);">
+            Pizzería La Redonda nació en el corazón de la Colonia Americana en Guadalajara con una idea simple: hacer la pizza perfecta, la que todos reconocen y todos recuerdan. Esa que tiene la masa en su punto, el queso en su justa medida y los ingredientes frescos que marcan la diferencia.
+          </p>
+          <p class="fluid-sm font-light leading-relaxed mb-8" style="color: rgba(253,246,236,0.6);">
+            Somos un negocio familiar con alma de pizzería de barrio, pero con el estándar de calidad de los mejores restaurantes.
+          </p>
+          <a href="#menu" class="btn btn-ghost">Explorar menú →</a>
+        </div>
+        <div class="lg:col-span-7 reveal" style="transition-delay: 0.15s;">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="img-card aspect-[3/4]">
+              <img src="componenetes-de-marca/interior.png" alt="Interior de La Redonda" loading="lazy">
+            </div>
+            <div class="img-card aspect-[3/4] mt-12">
+              <img src="componenetes-de-marca/hornoartesanal.png" alt="Nuestro horno artesanal" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ════════ QUOTE ════════ -->
+  <section class="py-20 md:py-28 px-6 lg:px-10 grain" style="background: #1A1A1A;">
+    <div class="max-w-4xl mx-auto reveal">
+      <div class="flex gap-6 items-start">
+        <span class="font-display text-brand-red" style="font-size: clamp(3.5rem, 3rem + 2vw, 6rem); line-height: 0.7; opacity: 0.4; flex-shrink: 0;">"</span>
+        <div>
+          <blockquote class="font-display italic fluid-xl text-brand-cream leading-snug mb-6" style="letter-spacing: -0.015em;">
+            Cada pizza que sale de nuestro horno lleva el cuidado y el cariño de quienes amamos lo que hacemos.
+          </blockquote>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-px bg-brand-red"></div>
+            <cite class="fluid-xs font-body font-500 uppercase tracking-[0.14em] text-brand-red not-italic">Pizzería La Redonda</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ════════ MENÚ ════════ -->
+  <section class="py-24 md:py-32 px-6 lg:px-10 grain" style="background: #212121;" id="menu">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-xl mb-16 reveal">
+        <p class="fluid-xs font-body font-500 uppercase tracking-[0.18em] text-brand-red mb-4">El menú</p>
+        <h2 class="font-display font-900 fluid-2xl text-brand-cream leading-[1.05] mb-4" style="letter-spacing: -0.03em;">Nuestras pizzas</h2>
+        <div class="deco-line mb-6"></div>
+        <p class="fluid-sm font-light leading-relaxed" style="color: rgba(253,246,236,0.55);">
+          Masa elaborada diariamente con harina de trigo italiana, fermentada por 24 horas. Disponibles en Personal (25 cm), Mediana (30 cm) y Grande (40 cm).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+        <div class="pizza-card reveal">
+          <div class="img-card"><img src="componenetes-de-marca/catalogo/Margarita.jpeg" alt="Pizza Margarita" loading="lazy"></div>
+          <div class="p-5 lg:p-6">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Margarita</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+            </div>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">La clásica italiana. Salsa de tomate San Marzano, mozzarella, albahaca fresca, aceite de oliva.</p>
+          </div>
+        </div>
+
+        <div class="pizza-card reveal" style="transition-delay: 0.08s;">
+          <div class="img-card"><img src="componenetes-de-marca/catalogo/peperoni.jpeg" alt="Pizza Pepperoni" loading="lazy"></div>
+          <div class="p-5 lg:p-6">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Pepperoni</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+            </div>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">La favorita de la casa. Generosas rodajas de pepperoni sobre mozzarella dorado y burbujeante.</p>
+          </div>
+        </div>
+
+        <div class="pizza-card reveal" style="transition-delay: 0.16s;">
+          <div class="img-card"><img src="componenetes-de-marca/catalogo/hawaiana.jpeg" alt="Pizza Hawaiana" loading="lazy"></div>
+          <div class="p-5 lg:p-6">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Hawaiana</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+            </div>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Dulce y salado perfecto. Mozzarella, jamón rosado y piña natural en trozos.</p>
+          </div>
+        </div>
+
+        <div class="pizza-card reveal" style="transition-delay: 0.24s;">
+          <div class="img-card"><img src="componenetes-de-marca/catalogo/la redonda especial.jpeg" alt="La Redonda Especial" loading="lazy"></div>
+          <div class="p-5 lg:p-6">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">La Redonda Especial</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $140</span>
+            </div>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Nuestra insignia. Pepperoni, champiñones, pimiento rojo y verde, aceitunas, cebolla morada.</p>
+          </div>
+        </div>
+
+        <div class="pizza-card reveal" style="transition-delay: 0.32s;">
+          <div class="img-card"><img src="componenetes-de-marca/catalogo/cuatro quesos.jpeg" alt="Cuatro Quesos" loading="lazy"></div>
+          <div class="p-5 lg:p-6">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Cuatro Quesos</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $130</span>
+            </div>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Mozzarella, gouda, manchego y queso azul sobre base blanca con aceite de oliva.</p>
+          </div>
+        </div>
+
+        <div class="pizza-card reveal" style="transition-delay: 0.40s;">
+          <div class="img-card"><img src="componenetes-de-marca/catalogo/vegetariana.jpeg" alt="Vegetariana" loading="lazy"></div>
+          <div class="p-5 lg:p-6">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Vegetariana</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+            </div>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Pimiento rojo y amarillo, champiñones, calabacita, jitomate cherry, espinaca baby.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extras -->
+      <div class="mt-20 reveal"><p class="fluid-xs font-body font-500 uppercase tracking-[0.18em] text-brand-red mb-8">Extras</p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
+        <div class="pizza-card reveal">
+          <div class="grid grid-cols-1 sm:grid-cols-2">
+            <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/catalogo/Alitas.jpeg" alt="Alitas" loading="lazy"></div>
+            <div class="p-5 lg:p-6 flex flex-col justify-center">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream mb-1" style="letter-spacing: -0.02em;">Alitas</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red mb-3">$95 MXN la orden</span>
+              <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">8 alitas marinadas, horneadas con piel crujiente. Con aderezo ranch y bastones de apio.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pizza-card reveal" style="transition-delay: 0.1s;">
+          <div class="grid grid-cols-1 sm:grid-cols-2">
+            <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/catalogo/pan de ajo.jpeg" alt="Pan de Ajo" loading="lazy"></div>
+            <div class="p-5 lg:p-6 flex flex-col justify-center">
+              <h3 class="font-display font-700 fluid-lg text-brand-cream mb-1" style="letter-spacing: -0.02em;">Pan de Ajo</h3>
+              <span class="fluid-xs font-body font-600 text-brand-red mb-3">$45 MXN</span>
+              <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Baguette artesanal tostada con mantequilla, ajo rostizado y perejil fresco.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="fluid-xs font-light mt-8 reveal" style="color: rgba(253,246,236,0.25);">* Precios sujetos a cambio sin previo aviso.</p>
+    </div>
+  </section>
+
+  <!-- ════════ TESTIMONIOS ════════ -->
+  <section class="py-24 md:py-32 px-6 lg:px-10 grain" style="background: #1A1A1A;">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col items-center justify-center max-w-xl mx-auto mb-14 reveal">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6" style="border: 1px solid rgba(192,57,43,0.2); background: rgba(192,57,43,0.04);">
+          <span class="fluid-xs font-body font-500 uppercase tracking-[0.14em] text-brand-red">Testimonios</span>
+        </div>
+        <h2 class="font-display font-900 fluid-2xl text-brand-cream leading-[1.05] text-center mb-4" style="letter-spacing: -0.03em;">
+          Lo que dicen nuestros clientes
+        </h2>
+        <p class="fluid-sm font-light leading-relaxed text-center" style="color: rgba(253,246,236,0.55);">
+          La mejor recomendación es la de quienes ya nos probaron.
+        </p>
+      </div>
+
+      <div class="flex justify-center gap-6 testimonials-mask">
+        <!-- Column 1 -->
+        <div class="testimonials-track" style="--scroll-duration: 22s;">
+          <div class="testimonial-card"><p>"La mejor pizza que he probado en Guadalajara. La masa es increíble, se nota que es artesanal. Mi favorita: la Redonda Especial."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María García" class="testimonial-avatar"><div><div class="testimonial-name">María García</div><div class="testimonial-role">Cliente frecuente</div></div></div></div>
+          <div class="testimonial-card"><p>"Pedimos por WhatsApp y llegó caliente y perfecta. El servicio es excelente y las alitas son adictivas."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Mendoza" class="testimonial-avatar"><div><div class="testimonial-name">Carlos Mendoza</div><div class="testimonial-role">Vecino de la colonia</div></div></div></div>
+          <div class="testimonial-card"><p>"Celebramos el cumpleaños de mi hija aquí. La atención fue increíble y los chamacos no dejaron ni una rebanada."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Rodríguez" class="testimonial-avatar"><div><div class="testimonial-name">Ana Rodríguez</div><div class="testimonial-role">Mamá feliz</div></div></div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="testimonial-card"><p>"La mejor pizza que he probado en Guadalajara. La masa es increíble, se nota que es artesanal. Mi favorita: la Redonda Especial."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María García" class="testimonial-avatar"><div><div class="testimonial-name">María García</div><div class="testimonial-role">Cliente frecuente</div></div></div></div>
+          <div class="testimonial-card"><p>"Pedimos por WhatsApp y llegó caliente y perfecta. El servicio es excelente y las alitas son adictivas."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Mendoza" class="testimonial-avatar"><div><div class="testimonial-name">Carlos Mendoza</div><div class="testimonial-role">Vecino de la colonia</div></div></div></div>
+          <div class="testimonial-card"><p>"Celebramos el cumpleaños de mi hija aquí. La atención fue increíble y los chamacos no dejaron ni una rebanada."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Rodríguez" class="testimonial-avatar"><div><div class="testimonial-name">Ana Rodríguez</div><div class="testimonial-role">Mamá feliz</div></div></div></div>
+        </div>
+        <!-- Column 2 (hidden on mobile) -->
+        <div class="testimonials-track hidden md:flex" style="--scroll-duration: 26s;">
+          <div class="testimonial-card"><p>"La Cuatro Quesos es una obra de arte. El queso azul le da un toque que no encuentras en ningún otro lado."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Sánchez" class="testimonial-avatar"><div><div class="testimonial-name">Roberto Sánchez</div><div class="testimonial-role">Foodie GDL</div></div></div></div>
+          <div class="testimonial-card"><p>"Venimos todos los viernes en familia. La calidad siempre es la misma: perfecta. La Hawaiana es nuestra favorita."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Hernández" class="testimonial-avatar"><div><div class="testimonial-name">Laura Hernández</div><div class="testimonial-role">Cliente desde 2022</div></div></div></div>
+          <div class="testimonial-card"><p>"Como italiano, soy muy exigente con la pizza. La Redonda me sorprendió. La Margarita está al nivel de Napoli."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Marco Bianchi" class="testimonial-avatar"><div><div class="testimonial-name">Marco Bianchi</div><div class="testimonial-role">Chef retirado</div></div></div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="testimonial-card"><p>"La Cuatro Quesos es una obra de arte. El queso azul le da un toque que no encuentras en ningún otro lado."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Sánchez" class="testimonial-avatar"><div><div class="testimonial-name">Roberto Sánchez</div><div class="testimonial-role">Foodie GDL</div></div></div></div>
+          <div class="testimonial-card"><p>"Venimos todos los viernes en familia. La calidad siempre es la misma: perfecta. La Hawaiana es nuestra favorita."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Hernández" class="testimonial-avatar"><div><div class="testimonial-name">Laura Hernández</div><div class="testimonial-role">Cliente desde 2022</div></div></div></div>
+          <div class="testimonial-card"><p>"Como italiano, soy muy exigente con la pizza. La Redonda me sorprendió. La Margarita está al nivel de Napoli."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Marco Bianchi" class="testimonial-avatar"><div><div class="testimonial-name">Marco Bianchi</div><div class="testimonial-role">Chef retirado</div></div></div></div>
+        </div>
+        <!-- Column 3 (hidden on mobile + tablet) -->
+        <div class="testimonials-track hidden lg:flex" style="--scroll-duration: 24s;">
+          <div class="testimonial-card"><p>"El pan de ajo es el mejor que he comido. Y la Pepperoni siempre tiene la cantidad perfecta de queso."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Diana Torres" class="testimonial-avatar"><div><div class="testimonial-name">Diana Torres</div><div class="testimonial-role">Estudiante ITESO</div></div></div></div>
+          <div class="testimonial-card"><p>"Probé la Vegetariana pensando que no me iba a gustar y terminé pidiéndola tres veces más esa semana."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Javier López" class="testimonial-avatar"><div><div class="testimonial-name">Javier López</div><div class="testimonial-role">Diseñador</div></div></div></div>
+          <div class="testimonial-card"><p>"La atención personalizada es lo que me hace volver. Te reciben como familia y la pizza es de otro nivel."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Sofía Ramírez" class="testimonial-avatar"><div><div class="testimonial-name">Sofía Ramírez</div><div class="testimonial-role">Profesora</div></div></div></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="testimonial-card"><p>"El pan de ajo es el mejor que he comido. Y la Pepperoni siempre tiene la cantidad perfecta de queso."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Diana Torres" class="testimonial-avatar"><div><div class="testimonial-name">Diana Torres</div><div class="testimonial-role">Estudiante ITESO</div></div></div></div>
+          <div class="testimonial-card"><p>"Probé la Vegetariana pensando que no me iba a gustar y terminé pidiéndola tres veces más esa semana."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Javier López" class="testimonial-avatar"><div><div class="testimonial-name">Javier López</div><div class="testimonial-role">Diseñador</div></div></div></div>
+          <div class="testimonial-card"><p>"La atención personalizada es lo que me hace volver. Te reciben como familia y la pizza es de otro nivel."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Sofía Ramírez" class="testimonial-avatar"><div><div class="testimonial-name">Sofía Ramírez</div><div class="testimonial-role">Profesora</div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ════════ CONTACTO — CTA + GOOGLE MAPS ════════ -->
+  <section class="py-24 md:py-32 px-6 lg:px-10 grain" style="background: #212121;" id="contacto">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        <div class="lg:col-span-5 reveal">
+          <p class="fluid-xs font-body font-500 uppercase tracking-[0.18em] text-brand-red mb-4">Visítanos</p>
+          <h2 class="font-display font-900 fluid-2xl text-brand-cream leading-[1.05] mb-4" style="letter-spacing: -0.03em;">¿Se te antojó?</h2>
+          <div class="deco-line mb-8"></div>
+          <p class="fluid-sm font-light leading-relaxed mb-3" style="color: rgba(253,246,236,0.6);">
+            Atendemos en local y hacemos entregas a domicilio en la zona.
+          </p>
+          <p class="fluid-sm font-light leading-relaxed mb-2" style="color: rgba(253,246,236,0.75);">
+            <svg width="14" height="14" fill="none" stroke="#C0392B" stroke-width="1.5" viewBox="0 0 24 24" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3"/></svg>
+            Av. Chapultepec 345, Col. Americana
+          </p>
+          <p class="fluid-sm font-light leading-relaxed mb-10" style="color: rgba(253,246,236,0.5);">
+            Guadalajara, Jalisco, México
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="https://wa.me/523323456789" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.9rem; padding: 1rem 2.2rem;">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="opacity: 0.8;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Pedir por WhatsApp
+            </a>
+            <a href="https://maps.google.com/maps?q=20.6736,-103.3625&z=16" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              Cómo llegar
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-7 reveal" style="transition-delay: 0.15s;">
+          <div class="map-embed-wrap">
+            <iframe
+              src="https://maps.google.com/maps?q=20.6736,-103.3625&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación de Pizzería La Redonda en Google Maps">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ════════ HORARIOS & REDES ════════ -->
+  <section class="py-20 md:py-28 px-6 lg:px-10 grain" style="background: #1A1A1A;">
+    <div class="info-strip">
+
+      <!-- Horarios -->
+      <div class="reveal">
+        <div class="flex items-center gap-3 mb-7">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(192,57,43,0.08);">
+            <svg width="18" height="18" fill="none" stroke="#C0392B" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h4 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Horarios</h4>
+        </div>
+        <div>
+          <div class="schedule-item">
+            <span class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Lunes – Jueves</span>
+            <span class="font-light" style="color: rgba(253,246,236,0.45); font-size: 0.85rem;">1:00 pm – 11:00 pm</span>
+          </div>
+          <div class="schedule-item">
+            <span class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Viernes – Sábado</span>
+            <span class="font-light" style="color: rgba(253,246,236,0.45); font-size: 0.85rem;">1:00 pm – 1:00 am</span>
+          </div>
+          <div class="schedule-item">
+            <span class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Domingo</span>
+            <span class="font-light" style="color: rgba(253,246,236,0.45); font-size: 0.85rem;">2:00 pm – 10:00 pm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div class="info-strip-divider"></div>
+
+      <!-- Redes Sociales -->
+      <div class="reveal" style="transition-delay: 0.12s;">
+        <div class="flex items-center gap-3 mb-7">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(192,57,43,0.08);">
+            <svg width="18" height="18" fill="none" stroke="#C0392B" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="16 6 12 2 8 6" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="2" x2="12" y2="15" stroke-linecap="round"/></svg>
+          </div>
+          <h4 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Síguenos</h4>
+        </div>
+        <div class="space-y-3">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-link">
+            <div class="social-icon-wrap">
+              <svg width="20" height="20" fill="none" stroke="#C0392B" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">@laredondagdl</div>
+              <div class="font-light" style="color: rgba(253,246,236,0.35); font-size: 0.72rem;">Instagram</div>
+            </div>
+            <svg width="16" height="16" fill="none" stroke="rgba(253,246,236,0.2)" stroke-width="1.5" viewBox="0 0 24 24" style="margin-left: auto;"><polyline points="9 18 15 12 9 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-link">
+            <div class="social-icon-wrap">
+              <svg width="20" height="20" fill="#C0392B" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </div>
+            <div>
+              <div class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Pizzería La Redonda GDL</div>
+              <div class="font-light" style="color: rgba(253,246,236,0.35); font-size: 0.72rem;">Facebook</div>
+            </div>
+            <svg width="16" height="16" fill="none" stroke="rgba(253,246,236,0.2)" stroke-width="1.5" viewBox="0 0 24 24" style="margin-left: auto;"><polyline points="9 18 15 12 9 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="py-10 px-6 lg:px-10" style="background: #141414; border-top: 1px solid rgba(192,57,43,0.08);">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <img src="componenetes-de-marca/Logo la redonda.png" alt="La Redonda" class="h-8 w-auto opacity-50">
+        <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.25);">© 2026 Pizzería La Redonda GDL</p>
+      </div>
+      <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.2);">Precios sujetos a cambio sin previo aviso</p>
+    </div>
+  </footer>
+
+  <!-- ════════ WHATSAPP FLOAT ════════ -->
+  <a href="https://wa.me/523323456789" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Pedir por WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ════════ SCRIPTS ════════ -->
+  <script>
+    (function() {
+      var nav = document.getElementById('nav');
+      var burger = document.getElementById('burger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var video = document.getElementById('heroVideo');
+      var dim = document.getElementById('videoDim');
+      var heroContent = document.getElementById('videoHeroContent');
+      var gradBottom = document.getElementById('videoGradBottom');
+      var scrollHint = document.getElementById('scrollHint');
+
+      // ─── Autoplay video → reveal on end ───
+      video.addEventListener('canplaythrough', function() {
+        video.play().catch(function() {});
+      }, { once: true });
+
+      video.addEventListener('ended', function() {
+        // Freeze on last frame, then reveal brand
+        video.pause();
+        dim.classList.add('active');
+        gradBottom.style.opacity = '0';
+        // Slight delay so the dim fades in first, then content
+        setTimeout(function() {
+          heroContent.classList.add('active');
+        }, 200);
+        // Show scroll hint after content is revealed
+        setTimeout(function() {
+          scrollHint.classList.add('active');
+        }, 1400);
+      });
+
+      // Fallback: if video can't autoplay, show brand immediately
+      video.addEventListener('loadeddata', function() {
+        var playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function() {
+            // Autoplay blocked — reveal brand right away
+            dim.classList.add('active');
+            heroContent.classList.add('active');
+            scrollHint.classList.add('active');
+          });
+        }
+      }, { once: true });
+
+      video.load();
+
+      // ─── Scroll: nav + reveal ───
+      function onScroll() {
+        var y = window.scrollY;
+        if (y > 60) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+
+        var els = document.querySelectorAll('.reveal:not(.visible)');
+        for (var i = 0; i < els.length; i++) {
+          if (els[i].getBoundingClientRect().top < window.innerHeight * 0.88) {
+            els[i].classList.add('visible');
+          }
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('load', onScroll);
+
+      // ─── Mobile menu ───
+      burger.addEventListener('click', function() {
+        burger.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+      window.closeMenu = function() {
+        burger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) window.closeMenu();
+      });
+    })();
+  </script>
+</body>
+</html>
