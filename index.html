@@ -139,10 +139,11 @@
                   box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .nav.scrolled {
-      background: rgba(26, 26, 26, 0.92);
-      backdrop-filter: blur(16px) saturate(1.2);
-      padding: 0.75rem 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      background: rgba(20, 20, 20, 0.94);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      padding: 0.65rem 0;
+      box-shadow: 0 1px 0 rgba(192,57,43,0.1), 0 8px 36px rgba(0,0,0,0.48);
     }
     .nav-link {
       font-family: 'Karla', sans-serif;
@@ -153,12 +154,13 @@
       transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .nav-link::after {
-      content: ''; position: absolute; left: 0; bottom: 0;
+      content: ''; position: absolute; left: 0; bottom: -2px;
       width: 0; height: 1.5px; background: #C0392B;
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: left center;
     }
     .nav-link:hover { color: #FDF6EC; }
-    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
     .nav-link:focus-visible { outline: 2px solid #C0392B; outline-offset: 6px; border-radius: 2px; }
     .nav-link:active { color: #C0392B; }
 
@@ -172,7 +174,7 @@
                   box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
                   background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .btn:active { transform: translateY(1px) scale(0.98); }
+    .btn:active { transform: translateY(1px) scale(0.97); }
     .btn:focus-visible { outline: 2px solid #C0392B; outline-offset: 4px; border-radius: 2px; }
 
     .btn-primary {
@@ -183,8 +185,8 @@
     }
     .btn-primary:hover {
       background: #E74C3C;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(192,57,43,0.4), 0 4px 8px rgba(0,0,0,0.2);
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 10px 32px rgba(192,57,43,0.45), 0 4px 10px rgba(0,0,0,0.22);
     }
 
     .btn-secondary {
@@ -197,8 +199,8 @@
     .btn-secondary:hover {
       background: rgba(253,246,236,0.06);
       border-color: rgba(253,246,236,0.4);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.28);
     }
 
     .btn-ghost {
@@ -208,11 +210,11 @@
     }
     .btn-ghost:hover { background: rgba(192,57,43,0.06); transform: translateY(-1px); }
 
-    /* ─── Scroll reveal ─── */
+    /* ─── Scroll reveal (spring) ─── */
     .reveal {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -222,7 +224,7 @@
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .img-card:hover img { transform: scale(1.05); }
+    .img-card:hover img { transform: scale(1.04); }
     .img-card::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.1) 45%, transparent 100%);
@@ -231,18 +233,21 @@
 
     /* ─── Pizza card ─── */
     .pizza-card {
-      background: #232323; border-radius: 6px; overflow: hidden;
-      border: 1px solid rgba(253,246,236,0.04);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      background: #232323; border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(253,246,236,0.05);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
                   box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                   border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .pizza-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.35), 0 4px 12px rgba(192,57,43,0.06);
-      border-color: rgba(192,57,43,0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 42px rgba(0,0,0,0.4), 0 4px 14px rgba(212,148,58,0.08);
+      border-color: rgba(212,148,58,0.18);
     }
     .pizza-card .img-card { border-radius: 0; aspect-ratio: 4/3; }
+    .pizza-card .img-card::after {
+      background: linear-gradient(to top, rgba(26,26,26,0.65) 0%, rgba(26,26,26,0.18) 40%, transparent 100%);
+    }
 
     /* ─── WhatsApp ─── */
     .wa-float {
@@ -346,10 +351,10 @@
     }
     .schedule-item {
       display: flex; justify-content: space-between; align-items: baseline;
-      padding: 0.75rem 0;
+      padding: 0.9rem 0;
     }
     .schedule-item + .schedule-item {
-      border-top: 1px solid rgba(253,246,236,0.04);
+      border-top: 1px solid rgba(253,246,236,0.05);
     }
     .social-link {
       display: flex; align-items: center; gap: 1rem;
@@ -371,7 +376,8 @@
     .social-icon-wrap {
       width: 44px; height: 44px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(192,57,43,0.08); flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(192,57,43,0.12), rgba(212,148,58,0.06));
+      flex-shrink: 0;
     }
     @media (max-width: 640px) {
       .info-strip { grid-template-columns: 1fr; gap: 2.5rem 0; }
@@ -406,6 +412,41 @@
 
     .deco-line { width: 48px; height: 2px; background: #C0392B; border-radius: 1px; }
     .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(192,57,43,0.12), transparent); }
+
+    /* ─── Amber hero strip ─── */
+    .video-amber-strip {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(212,148,58,0.45), rgba(192,57,43,0.55), rgba(212,148,58,0.45), transparent);
+      z-index: 5; pointer-events: none; opacity: 0;
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    }
+    .video-amber-strip.active { opacity: 1; }
+
+    /* ─── Micro-stats ─── */
+    .micro-stats { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-bottom: 1.75rem; }
+    .micro-stat {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: 'Karla', sans-serif; font-weight: 600;
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: rgba(253,246,236,0.5);
+    }
+    .micro-stat::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: #D4943A; flex-shrink: 0;
+    }
+
+    /* ─── Testimonial stars ─── */
+    .testimonial-stars { display: flex; gap: 2px; margin-bottom: 0.65rem; }
+    .testimonial-stars svg { width: 12px; height: 12px; fill: #D4943A; }
+
+    /* ─── Testimonials hover pause ─── */
+    .testimonials-mask:hover .testimonials-track { animation-play-state: paused; }
+
+    /* ─── Amber tint overlay ─── */
+    .amber-tint {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: rgba(212,148,58,0.04); mix-blend-mode: overlay;
+    }
 
     /* ═══════ MOBILE FIXES ═══════ */
     @media (max-width: 768px) {
@@ -514,15 +555,16 @@
     <div class="video-grad-top"></div>
     <div class="video-grad-bottom" id="videoGradBottom"></div>
     <div class="video-dim" id="videoDim"></div>
+    <div class="video-amber-strip" id="videoAmberStrip"></div>
 
     <!-- Centered hero content — revealed when video ends -->
     <div class="video-hero-content" id="videoHeroContent">
-      <img src="componenetes-de-marca/Logo la redonda.webp" alt="" class="w-24 md:w-28 mx-auto mb-6" style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));">
-      <p class="fluid-xs font-body font-500 uppercase tracking-[0.2em] text-brand-red mb-4" style="opacity: 0.85;">Pizzería artesanal · Guadalajara</p>
-      <h1 class="font-display font-900 fluid-hero text-brand-cream leading-[0.92] mb-5" style="letter-spacing: -0.035em;">
+      <img src="componenetes-de-marca/Logo la redonda.webp" alt="" class="w-24 md:w-28 mx-auto mb-8" style="filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));">
+      <p class="fluid-xs font-body font-500 uppercase tracking-[0.22em] text-brand-red mb-5" style="opacity: 0.9;">Pizzería artesanal · Guadalajara</p>
+      <h1 class="font-display font-900 fluid-hero text-brand-cream leading-[0.92] mb-4" style="letter-spacing: -0.04em;">
         La Redonda
       </h1>
-      <p class="font-display italic fluid-lg mb-10" style="color: #E8B960; max-width: 30ch;">
+      <p class="font-display italic fluid-lg mb-12" style="color: #E8B960; max-width: 28ch; letter-spacing: -0.01em;">
         Redonda de sabor, perfecta de siempre
       </p>
       <div class="flex flex-wrap justify-center gap-4">
@@ -536,8 +578,8 @@
 
     <!-- Scroll hint — appears after brand reveal -->
     <div class="video-scroll-hint" id="scrollHint">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#D4943A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 11l6 6 6-6"/>
       </svg>
     </div>
   </section>
@@ -552,10 +594,15 @@
             Alma de barrio,<br>calidad de verdad
           </h2>
           <div class="deco-line mb-8"></div>
-          <p class="fluid-sm font-light leading-relaxed mb-5" style="color: rgba(253,246,236,0.6);">
+          <div class="micro-stats">
+            <span class="micro-stat">Masa fermentada 24h</span>
+            <span class="micro-stat">Harina italiana</span>
+            <span class="micro-stat">Negocio familiar</span>
+          </div>
+          <p class="fluid-sm font-light leading-relaxed mb-5" style="color: rgba(253,246,236,0.72);">
             Pizzería La Redonda nació en el corazón de la Colonia Americana en Guadalajara con una idea simple: hacer la pizza perfecta, la que todos reconocen y todos recuerdan. Esa que tiene la masa en su punto, el queso en su justa medida y los ingredientes frescos que marcan la diferencia.
           </p>
-          <p class="fluid-sm font-light leading-relaxed mb-8" style="color: rgba(253,246,236,0.6);">
+          <p class="fluid-sm font-light leading-relaxed mb-8" style="color: rgba(253,246,236,0.72);">
             Somos un negocio familiar con alma de pizzería de barrio, pero con el estándar de calidad de los mejores restaurantes.
           </p>
           <a href="#menu" class="btn btn-ghost">Explorar menú →</a>
@@ -564,9 +611,11 @@
           <div class="grid grid-cols-2 gap-4">
             <div class="img-card aspect-[3/4]">
               <img src="componenetes-de-marca/interior.jpg" alt="Interior de La Redonda" loading="lazy">
+              <div class="amber-tint"></div>
             </div>
             <div class="img-card aspect-[3/4] mt-12">
               <img src="componenetes-de-marca/hornoartesanal.jpg" alt="Nuestro horno artesanal" loading="lazy">
+              <div class="amber-tint"></div>
             </div>
           </div>
         </div>
@@ -577,17 +626,18 @@
   <div class="section-divider"></div>
 
   <!-- ════════ QUOTE ════════ -->
-  <section class="py-20 md:py-28 px-6 lg:px-10 grain" style="background: #1A1A1A;">
+  <section class="py-24 md:py-32 px-6 lg:px-10 grain" style="background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(212,148,58,0.04) 0%, transparent 65%), #1A1A1A;">
     <div class="max-w-4xl mx-auto reveal">
-      <div class="flex gap-6 items-start">
-        <span class="font-display text-brand-red" style="font-size: clamp(3.5rem, 3rem + 2vw, 6rem); line-height: 0.7; opacity: 0.4; flex-shrink: 0;">"</span>
+      <div class="flex gap-5 items-start">
+        <span class="font-display text-brand-red" style="font-size: clamp(5rem, 5rem + 5vw, 9rem); line-height: 0.62; opacity: 0.1; flex-shrink: 0; margin-top: 0.4rem;">"</span>
         <div>
-          <blockquote class="font-display italic fluid-xl text-brand-cream leading-snug mb-6" style="letter-spacing: -0.015em;">
+          <blockquote class="font-display italic text-brand-cream leading-[1.1] mb-8" style="letter-spacing: -0.02em; font-size: clamp(1.45rem, 1.2rem + 1.4vw, 2.3rem);">
             Cada pizza que sale de nuestro horno lleva el cuidado y el cariño de quienes amamos lo que hacemos.
           </blockquote>
           <div class="flex items-center gap-3">
-            <div class="w-8 h-px bg-brand-red"></div>
-            <cite class="fluid-xs font-body font-500 uppercase tracking-[0.14em] text-brand-red not-italic">Pizzería La Redonda</cite>
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: #D4943A;"></div>
+            <div class="w-12 h-px flex-shrink-0" style="background: linear-gradient(90deg, #D4943A, rgba(212,148,58,0.15));"></div>
+            <cite class="fluid-xs font-body font-600 uppercase tracking-[0.18em] not-italic" style="color: #D4943A;">Pizzería La Redonda</cite>
           </div>
         </div>
       </div>
@@ -611,67 +661,67 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
         <div class="pizza-card reveal">
           <div class="img-card"><img src="componenetes-de-marca/Catalogo/Margarita.jpg" alt="Pizza Margarita" loading="lazy"></div>
-          <div class="p-5 lg:p-6">
+          <div class="p-6 lg:p-7">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Margarita</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+              <span class="fluid-xs font-body font-600 whitespace-nowrap mt-1" style="color: #D4943A;">Desde $120</span>
             </div>
-            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">La clásica italiana. Salsa de tomate San Marzano, mozzarella, albahaca fresca, aceite de oliva.</p>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">La clásica italiana. Salsa de tomate San Marzano, mozzarella, albahaca fresca, aceite de oliva.</p>
           </div>
         </div>
 
-        <div class="pizza-card reveal" style="transition-delay: 0.08s;">
+        <div class="pizza-card reveal" style="transition-delay: 0.07s;">
           <div class="img-card"><img src="componenetes-de-marca/Catalogo/peperoni.jpg" alt="Pizza Pepperoni" loading="lazy"></div>
-          <div class="p-5 lg:p-6">
+          <div class="p-6 lg:p-7">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Pepperoni</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+              <span class="fluid-xs font-body font-600 whitespace-nowrap mt-1" style="color: #D4943A;">Desde $120</span>
             </div>
-            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">La favorita de la casa. Generosas rodajas de pepperoni sobre mozzarella dorado y burbujeante.</p>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">La favorita de la casa. Generosas rodajas de pepperoni sobre mozzarella dorado y burbujeante.</p>
           </div>
         </div>
 
-        <div class="pizza-card reveal" style="transition-delay: 0.16s;">
+        <div class="pizza-card reveal" style="transition-delay: 0.14s;">
           <div class="img-card"><img src="componenetes-de-marca/Catalogo/hawaiana.jpg" alt="Pizza Hawaiana" loading="lazy"></div>
-          <div class="p-5 lg:p-6">
+          <div class="p-6 lg:p-7">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Hawaiana</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+              <span class="fluid-xs font-body font-600 whitespace-nowrap mt-1" style="color: #D4943A;">Desde $120</span>
             </div>
-            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Dulce y salado perfecto. Mozzarella, jamón rosado y piña natural en trozos.</p>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">Dulce y salado perfecto. Mozzarella, jamón rosado y piña natural en trozos.</p>
           </div>
         </div>
 
-        <div class="pizza-card reveal" style="transition-delay: 0.24s;">
+        <div class="pizza-card reveal" style="transition-delay: 0.21s;">
           <div class="img-card"><img src="componenetes-de-marca/Catalogo/la redonda especial.jpg" alt="La Redonda Especial" loading="lazy"></div>
-          <div class="p-5 lg:p-6">
+          <div class="p-6 lg:p-7">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">La Redonda Especial</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $140</span>
+              <span class="fluid-xs font-body font-600 whitespace-nowrap mt-1" style="color: #D4943A;">Desde $140</span>
             </div>
-            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Nuestra insignia. Pepperoni, champiñones, pimiento rojo y verde, aceitunas, cebolla morada.</p>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">Nuestra insignia. Pepperoni, champiñones, pimiento rojo y verde, aceitunas, cebolla morada.</p>
           </div>
         </div>
 
-        <div class="pizza-card reveal" style="transition-delay: 0.32s;">
+        <div class="pizza-card reveal" style="transition-delay: 0.28s;">
           <div class="img-card"><img src="componenetes-de-marca/Catalogo/cuatro quesos.jpg" alt="Cuatro Quesos" loading="lazy"></div>
-          <div class="p-5 lg:p-6">
+          <div class="p-6 lg:p-7">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Cuatro Quesos</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $130</span>
+              <span class="fluid-xs font-body font-600 whitespace-nowrap mt-1" style="color: #D4943A;">Desde $130</span>
             </div>
-            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Mozzarella, gouda, manchego y queso azul sobre base blanca con aceite de oliva.</p>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">Mozzarella, gouda, manchego y queso azul sobre base blanca con aceite de oliva.</p>
           </div>
         </div>
 
-        <div class="pizza-card reveal" style="transition-delay: 0.40s;">
+        <div class="pizza-card reveal" style="transition-delay: 0.35s;">
           <div class="img-card"><img src="componenetes-de-marca/Catalogo/vegetariana.jpg" alt="Vegetariana" loading="lazy"></div>
-          <div class="p-5 lg:p-6">
+          <div class="p-6 lg:p-7">
             <div class="flex items-start justify-between gap-3 mb-2">
               <h3 class="font-display font-700 fluid-lg text-brand-cream" style="letter-spacing: -0.02em;">Vegetariana</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red whitespace-nowrap mt-1">Desde $120</span>
+              <span class="fluid-xs font-body font-600 whitespace-nowrap mt-1" style="color: #D4943A;">Desde $120</span>
             </div>
-            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Pimiento rojo y amarillo, champiñones, calabacita, jitomate cherry, espinaca baby.</p>
+            <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">Pimiento rojo y amarillo, champiñones, calabacita, jitomate cherry, espinaca baby.</p>
           </div>
         </div>
       </div>
@@ -682,25 +732,28 @@
         <div class="pizza-card reveal">
           <div class="grid grid-cols-1 sm:grid-cols-2">
             <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/Catalogo/Alitas.jpg" alt="Alitas" loading="lazy"></div>
-            <div class="p-5 lg:p-6 flex flex-col justify-center">
+            <div class="p-6 lg:p-7 flex flex-col justify-center">
               <h3 class="font-display font-700 fluid-lg text-brand-cream mb-1" style="letter-spacing: -0.02em;">Alitas</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red mb-3">$95 MXN la orden</span>
-              <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">8 alitas marinadas, horneadas con piel crujiente. Con aderezo ranch y bastones de apio.</p>
+              <span class="fluid-xs font-body font-600 mb-3" style="color: #D4943A;">$95 MXN la orden</span>
+              <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">8 alitas marinadas, horneadas con piel crujiente. Con aderezo ranch y bastones de apio.</p>
             </div>
           </div>
         </div>
         <div class="pizza-card reveal" style="transition-delay: 0.1s;">
           <div class="grid grid-cols-1 sm:grid-cols-2">
             <div class="img-card aspect-square sm:aspect-auto"><img src="componenetes-de-marca/Catalogo/pan de ajo.jpg" alt="Pan de Ajo" loading="lazy"></div>
-            <div class="p-5 lg:p-6 flex flex-col justify-center">
+            <div class="p-6 lg:p-7 flex flex-col justify-center">
               <h3 class="font-display font-700 fluid-lg text-brand-cream mb-1" style="letter-spacing: -0.02em;">Pan de Ajo</h3>
-              <span class="fluid-xs font-body font-600 text-brand-red mb-3">$45 MXN</span>
-              <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.45);">Baguette artesanal tostada con mantequilla, ajo rostizado y perejil fresco.</p>
+              <span class="fluid-xs font-body font-600 mb-3" style="color: #D4943A;">$45 MXN</span>
+              <p class="fluid-xs font-light leading-relaxed" style="color: rgba(253,246,236,0.62);">Baguette artesanal tostada con mantequilla, ajo rostizado y perejil fresco.</p>
             </div>
           </div>
         </div>
       </div>
       <p class="fluid-xs font-light mt-8 reveal" style="color: rgba(253,246,236,0.25);">* Precios sujetos a cambio sin previo aviso.</p>
+      <div class="mt-12 flex justify-center reveal">
+        <a href="catalogo.html" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.9rem 2.4rem; letter-spacing: 0.1em;">Ver catálogo completo →</a>
+      </div>
     </div>
   </section>
 
@@ -722,33 +775,33 @@
       <div class="flex justify-center gap-6 testimonials-mask">
         <!-- Column 1 -->
         <div class="testimonials-track" style="--scroll-duration: 22s;">
-          <div class="testimonial-card"><p>"La mejor pizza que he probado en Guadalajara. La masa es increíble, se nota que es artesanal. Mi favorita: la Redonda Especial."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María García" class="testimonial-avatar"><div><div class="testimonial-name">María García</div><div class="testimonial-role">Cliente frecuente</div></div></div></div>
-          <div class="testimonial-card"><p>"Pedimos por WhatsApp y llegó caliente y perfecta. El servicio es excelente y las alitas son adictivas."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Mendoza" class="testimonial-avatar"><div><div class="testimonial-name">Carlos Mendoza</div><div class="testimonial-role">Vecino de la colonia</div></div></div></div>
-          <div class="testimonial-card"><p>"Celebramos el cumpleaños de mi hija aquí. La atención fue increíble y los chamacos no dejaron ni una rebanada."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Rodríguez" class="testimonial-avatar"><div><div class="testimonial-name">Ana Rodríguez</div><div class="testimonial-role">Mamá feliz</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"La mejor pizza que he probado en Guadalajara. La masa es increíble, se nota que es artesanal. Mi favorita: la Redonda Especial."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María García" class="testimonial-avatar"><div><div class="testimonial-name">María García</div><div class="testimonial-role">Cliente frecuente</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Pedimos por WhatsApp y llegó caliente y perfecta. El servicio es excelente y las alitas son adictivas."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Mendoza" class="testimonial-avatar"><div><div class="testimonial-name">Carlos Mendoza</div><div class="testimonial-role">Vecino de la colonia</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Celebramos el cumpleaños de mi hija aquí. La atención fue increíble y los chamacos no dejaron ni una rebanada."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Rodríguez" class="testimonial-avatar"><div><div class="testimonial-name">Ana Rodríguez</div><div class="testimonial-role">Mamá feliz</div></div></div></div>
           <!-- Duplicate for seamless loop -->
-          <div class="testimonial-card"><p>"La mejor pizza que he probado en Guadalajara. La masa es increíble, se nota que es artesanal. Mi favorita: la Redonda Especial."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María García" class="testimonial-avatar"><div><div class="testimonial-name">María García</div><div class="testimonial-role">Cliente frecuente</div></div></div></div>
-          <div class="testimonial-card"><p>"Pedimos por WhatsApp y llegó caliente y perfecta. El servicio es excelente y las alitas son adictivas."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Mendoza" class="testimonial-avatar"><div><div class="testimonial-name">Carlos Mendoza</div><div class="testimonial-role">Vecino de la colonia</div></div></div></div>
-          <div class="testimonial-card"><p>"Celebramos el cumpleaños de mi hija aquí. La atención fue increíble y los chamacos no dejaron ni una rebanada."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Rodríguez" class="testimonial-avatar"><div><div class="testimonial-name">Ana Rodríguez</div><div class="testimonial-role">Mamá feliz</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"La mejor pizza que he probado en Guadalajara. La masa es increíble, se nota que es artesanal. Mi favorita: la Redonda Especial."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María García" class="testimonial-avatar"><div><div class="testimonial-name">María García</div><div class="testimonial-role">Cliente frecuente</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Pedimos por WhatsApp y llegó caliente y perfecta. El servicio es excelente y las alitas son adictivas."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Mendoza" class="testimonial-avatar"><div><div class="testimonial-name">Carlos Mendoza</div><div class="testimonial-role">Vecino de la colonia</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Celebramos el cumpleaños de mi hija aquí. La atención fue increíble y los chamacos no dejaron ni una rebanada."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana Rodríguez" class="testimonial-avatar"><div><div class="testimonial-name">Ana Rodríguez</div><div class="testimonial-role">Mamá feliz</div></div></div></div>
         </div>
         <!-- Column 2 (hidden on mobile) -->
         <div class="testimonials-track hidden md:flex" style="--scroll-duration: 26s;">
-          <div class="testimonial-card"><p>"La Cuatro Quesos es una obra de arte. El queso azul le da un toque que no encuentras en ningún otro lado."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Sánchez" class="testimonial-avatar"><div><div class="testimonial-name">Roberto Sánchez</div><div class="testimonial-role">Foodie GDL</div></div></div></div>
-          <div class="testimonial-card"><p>"Venimos todos los viernes en familia. La calidad siempre es la misma: perfecta. La Hawaiana es nuestra favorita."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Hernández" class="testimonial-avatar"><div><div class="testimonial-name">Laura Hernández</div><div class="testimonial-role">Cliente desde 2022</div></div></div></div>
-          <div class="testimonial-card"><p>"Como italiano, soy muy exigente con la pizza. La Redonda me sorprendió. La Margarita está al nivel de Napoli."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Marco Bianchi" class="testimonial-avatar"><div><div class="testimonial-name">Marco Bianchi</div><div class="testimonial-role">Chef retirado</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"La Cuatro Quesos es una obra de arte. El queso azul le da un toque que no encuentras en ningún otro lado."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Sánchez" class="testimonial-avatar"><div><div class="testimonial-name">Roberto Sánchez</div><div class="testimonial-role">Foodie GDL</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Venimos todos los viernes en familia. La calidad siempre es la misma: perfecta. La Hawaiana es nuestra favorita."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Hernández" class="testimonial-avatar"><div><div class="testimonial-name">Laura Hernández</div><div class="testimonial-role">Cliente desde 2022</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Como italiano, soy muy exigente con la pizza. La Redonda me sorprendió. La Margarita está al nivel de Napoli."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Marco Bianchi" class="testimonial-avatar"><div><div class="testimonial-name">Marco Bianchi</div><div class="testimonial-role">Chef retirado</div></div></div></div>
           <!-- Duplicate for seamless loop -->
-          <div class="testimonial-card"><p>"La Cuatro Quesos es una obra de arte. El queso azul le da un toque que no encuentras en ningún otro lado."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Sánchez" class="testimonial-avatar"><div><div class="testimonial-name">Roberto Sánchez</div><div class="testimonial-role">Foodie GDL</div></div></div></div>
-          <div class="testimonial-card"><p>"Venimos todos los viernes en familia. La calidad siempre es la misma: perfecta. La Hawaiana es nuestra favorita."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Hernández" class="testimonial-avatar"><div><div class="testimonial-name">Laura Hernández</div><div class="testimonial-role">Cliente desde 2022</div></div></div></div>
-          <div class="testimonial-card"><p>"Como italiano, soy muy exigente con la pizza. La Redonda me sorprendió. La Margarita está al nivel de Napoli."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Marco Bianchi" class="testimonial-avatar"><div><div class="testimonial-name">Marco Bianchi</div><div class="testimonial-role">Chef retirado</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"La Cuatro Quesos es una obra de arte. El queso azul le da un toque que no encuentras en ningún otro lado."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Sánchez" class="testimonial-avatar"><div><div class="testimonial-name">Roberto Sánchez</div><div class="testimonial-role">Foodie GDL</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Venimos todos los viernes en familia. La calidad siempre es la misma: perfecta. La Hawaiana es nuestra favorita."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Hernández" class="testimonial-avatar"><div><div class="testimonial-name">Laura Hernández</div><div class="testimonial-role">Cliente desde 2022</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Como italiano, soy muy exigente con la pizza. La Redonda me sorprendió. La Margarita está al nivel de Napoli."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Marco Bianchi" class="testimonial-avatar"><div><div class="testimonial-name">Marco Bianchi</div><div class="testimonial-role">Chef retirado</div></div></div></div>
         </div>
         <!-- Column 3 (hidden on mobile + tablet) -->
         <div class="testimonials-track hidden lg:flex" style="--scroll-duration: 24s;">
-          <div class="testimonial-card"><p>"El pan de ajo es el mejor que he comido. Y la Pepperoni siempre tiene la cantidad perfecta de queso."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Diana Torres" class="testimonial-avatar"><div><div class="testimonial-name">Diana Torres</div><div class="testimonial-role">Estudiante ITESO</div></div></div></div>
-          <div class="testimonial-card"><p>"Probé la Vegetariana pensando que no me iba a gustar y terminé pidiéndola tres veces más esa semana."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Javier López" class="testimonial-avatar"><div><div class="testimonial-name">Javier López</div><div class="testimonial-role">Diseñador</div></div></div></div>
-          <div class="testimonial-card"><p>"La atención personalizada es lo que me hace volver. Te reciben como familia y la pizza es de otro nivel."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Sofía Ramírez" class="testimonial-avatar"><div><div class="testimonial-name">Sofía Ramírez</div><div class="testimonial-role">Profesora</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"El pan de ajo es el mejor que he comido. Y la Pepperoni siempre tiene la cantidad perfecta de queso."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Diana Torres" class="testimonial-avatar"><div><div class="testimonial-name">Diana Torres</div><div class="testimonial-role">Estudiante ITESO</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Probé la Vegetariana pensando que no me iba a gustar y terminé pidiéndola tres veces más esa semana."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Javier López" class="testimonial-avatar"><div><div class="testimonial-name">Javier López</div><div class="testimonial-role">Diseñador</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"La atención personalizada es lo que me hace volver. Te reciben como familia y la pizza es de otro nivel."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Sofía Ramírez" class="testimonial-avatar"><div><div class="testimonial-name">Sofía Ramírez</div><div class="testimonial-role">Profesora</div></div></div></div>
           <!-- Duplicate for seamless loop -->
-          <div class="testimonial-card"><p>"El pan de ajo es el mejor que he comido. Y la Pepperoni siempre tiene la cantidad perfecta de queso."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Diana Torres" class="testimonial-avatar"><div><div class="testimonial-name">Diana Torres</div><div class="testimonial-role">Estudiante ITESO</div></div></div></div>
-          <div class="testimonial-card"><p>"Probé la Vegetariana pensando que no me iba a gustar y terminé pidiéndola tres veces más esa semana."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Javier López" class="testimonial-avatar"><div><div class="testimonial-name">Javier López</div><div class="testimonial-role">Diseñador</div></div></div></div>
-          <div class="testimonial-card"><p>"La atención personalizada es lo que me hace volver. Te reciben como familia y la pizza es de otro nivel."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Sofía Ramírez" class="testimonial-avatar"><div><div class="testimonial-name">Sofía Ramírez</div><div class="testimonial-role">Profesora</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"El pan de ajo es el mejor que he comido. Y la Pepperoni siempre tiene la cantidad perfecta de queso."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Diana Torres" class="testimonial-avatar"><div><div class="testimonial-name">Diana Torres</div><div class="testimonial-role">Estudiante ITESO</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"Probé la Vegetariana pensando que no me iba a gustar y terminé pidiéndola tres veces más esa semana."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Javier López" class="testimonial-avatar"><div><div class="testimonial-name">Javier López</div><div class="testimonial-role">Diseñador</div></div></div></div>
+          <div class="testimonial-card"><div class="testimonial-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p style="color: rgba(253,246,236,0.72);">"La atención personalizada es lo que me hace volver. Te reciben como familia y la pizza es de otro nivel."</p><div class="flex items-center gap-3 mt-5"><img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Sofía Ramírez" class="testimonial-avatar"><div><div class="testimonial-name">Sofía Ramírez</div><div class="testimonial-role">Profesora</div></div></div></div>
         </div>
       </div>
     </div>
@@ -764,16 +817,20 @@
           <p class="fluid-xs font-body font-500 uppercase tracking-[0.18em] text-brand-red mb-4">Visítanos</p>
           <h2 class="font-display font-900 fluid-2xl text-brand-cream leading-[1.05] mb-4" style="letter-spacing: -0.03em;">¿Se te antojó?</h2>
           <div class="deco-line mb-8"></div>
-          <p class="fluid-sm font-light leading-relaxed mb-3" style="color: rgba(253,246,236,0.6);">
+          <p class="fluid-sm font-light leading-relaxed mb-5" style="color: rgba(253,246,236,0.7);">
             Atendemos en local y hacemos entregas a domicilio en la zona.
           </p>
-          <p class="fluid-sm font-light leading-relaxed mb-2" style="color: rgba(253,246,236,0.75);">
+          <p class="fluid-sm font-light leading-relaxed mb-1" style="color: rgba(253,246,236,0.82);">
             <svg width="14" height="14" fill="none" stroke="#C0392B" stroke-width="1.5" viewBox="0 0 24 24" style="display: inline-block; vertical-align: -2px; margin-right: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3"/></svg>
             Av. Chapultepec 345, Col. Americana
           </p>
-          <p class="fluid-sm font-light leading-relaxed mb-10" style="color: rgba(253,246,236,0.5);">
+          <p class="fluid-sm font-light leading-relaxed mb-6" style="color: rgba(253,246,236,0.5); padding-left: 20px;">
             Guadalajara, Jalisco, México
           </p>
+          <a href="tel:+523323456789" class="flex items-center gap-2 mb-8" style="text-decoration: none;">
+            <svg width="15" height="15" fill="none" stroke="#D4943A" stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18 2 2 0 012 .02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <span class="font-body font-600 fluid-base" style="color: rgba(253,246,236,0.88);">33 2345 6789</span>
+          </a>
           <div class="flex flex-wrap gap-4">
             <a href="https://wa.me/523323456789" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.9rem; padding: 1rem 2.2rem;">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="opacity: 0.8;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -816,15 +873,15 @@
         <div>
           <div class="schedule-item">
             <span class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Lunes – Jueves</span>
-            <span class="font-light" style="color: rgba(253,246,236,0.45); font-size: 0.85rem;">1:00 pm – 11:00 pm</span>
+            <span class="font-light" style="color: rgba(253,246,236,0.62); font-size: 0.85rem;">1:00 pm – 11:00 pm</span>
           </div>
           <div class="schedule-item">
             <span class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Viernes – Sábado</span>
-            <span class="font-light" style="color: rgba(253,246,236,0.45); font-size: 0.85rem;">1:00 pm – 1:00 am</span>
+            <span class="font-light" style="color: rgba(253,246,236,0.62); font-size: 0.85rem;">1:00 pm – 1:00 am</span>
           </div>
           <div class="schedule-item">
             <span class="font-body font-500 text-brand-cream" style="font-size: 0.88rem;">Domingo</span>
-            <span class="font-light" style="color: rgba(253,246,236,0.45); font-size: 0.85rem;">2:00 pm – 10:00 pm</span>
+            <span class="font-light" style="color: rgba(253,246,236,0.62); font-size: 0.85rem;">2:00 pm – 10:00 pm</span>
           </div>
         </div>
       </div>
@@ -868,13 +925,21 @@
   </section>
 
   <!-- ════════ FOOTER ════════ -->
-  <footer class="py-10 px-6 lg:px-10" style="background: #141414; border-top: 1px solid rgba(192,57,43,0.08);">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <img src="componenetes-de-marca/Logo la redonda.webp" alt="La Redonda" class="h-8 w-auto opacity-50">
-        <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.25);">© 2026 Pizzería La Redonda GDL</p>
+  <footer class="pt-0 pb-10 px-6 lg:px-10" style="background: #141414;">
+    <div style="height: 1px; background: linear-gradient(90deg, transparent, rgba(212,148,58,0.3), rgba(192,57,43,0.35), rgba(212,148,58,0.3), transparent); margin-bottom: 2.5rem;"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
+        <div class="flex items-center gap-4">
+          <img src="componenetes-de-marca/Logo la redonda.webp" alt="La Redonda" class="h-8 w-auto" style="opacity: 0.42;">
+          <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.25);">© 2026 Pizzería La Redonda GDL</p>
+        </div>
+        <div class="flex items-center gap-5">
+          <a href="tel:+523323456789" class="fluid-xs font-light" style="color: rgba(253,246,236,0.32); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='rgba(253,246,236,0.6)'" onmouseout="this.style.color='rgba(253,246,236,0.32)'">33 2345 6789</a>
+          <span style="color: rgba(253,246,236,0.12);">·</span>
+          <a href="mailto:contacto@laredonda.com" class="fluid-xs font-light" style="color: rgba(253,246,236,0.32); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='rgba(253,246,236,0.6)'" onmouseout="this.style.color='rgba(253,246,236,0.32)'">contacto@laredonda.com</a>
+        </div>
+        <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.18);">Precios sujetos a cambio</p>
       </div>
-      <p class="fluid-xs font-light" style="color: rgba(253,246,236,0.2);">Precios sujetos a cambio sin previo aviso</p>
     </div>
   </footer>
 
@@ -893,6 +958,7 @@
       var heroContent = document.getElementById('videoHeroContent');
       var gradBottom = document.getElementById('videoGradBottom');
       var scrollHint = document.getElementById('scrollHint');
+      var amberStrip = document.getElementById('videoAmberStrip');
       var isMobile = window.matchMedia('(max-width: 768px)').matches;
 
       // ─── Mobile: static hero, no video needed ───
@@ -912,6 +978,7 @@
           video.pause();
           dim.classList.add('active');
           gradBottom.style.opacity = '0';
+          if (amberStrip) amberStrip.classList.add('active');
           setTimeout(function() { heroContent.classList.add('active'); }, 200);
           setTimeout(function() { scrollHint.classList.add('active'); }, 1400);
         }
